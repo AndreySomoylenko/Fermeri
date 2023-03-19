@@ -1,5 +1,4 @@
 import requests
-import numpy
 import math
 import json
 from aiogram import Bot, types
@@ -38,9 +37,6 @@ def length(sh, dist):
 
 
 
-hrds = {
-    'X-Auth-Token': 'v427t5hx'
-}
 
 #req = requests.get('https://dt.miet.ru/ppo_it_final', headers=hrds).json()['message']
 
@@ -77,7 +73,16 @@ async def fly(message: types.Message):
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.reply('Команды:\n/fly\n/get')
+    await message.reply('Команды:\n/fly\n/get\n/test')
+
+
+@dp.message_handler(commands=['test'])
+async def test1(message: types.Message):
+    hrds = {
+        'X-Auth-Token': 'v427t5hx'
+    }
+    req = requests.get('https://dt.miet.ru/ppo_it_final', headers=hrds)
+    await message.reply(req.text)
 
 @dp.message_handler(commands=['get'])
 async def get(message: types.Message):
